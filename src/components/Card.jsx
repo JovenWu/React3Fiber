@@ -14,6 +14,8 @@ const Card = ({ position }) => {
   const [hasBeenClicked, setHasBeenClicked] = useState(false);
   const { camera, controls } = useThree();
 
+  const duration = 0.07;
+
   const originalPosition = new THREE.Vector3(
     position.x,
     position.y,
@@ -48,7 +50,7 @@ const Card = ({ position }) => {
       targetPosition.applyMatrix4(camera.matrixWorld);
 
       // Update position and rotation
-      meshRef.current.position.lerp(targetPosition, 0.03);
+      meshRef.current.position.lerp(targetPosition, duration);
 
       // Updated rotation logic
       const quaternion = new THREE.Quaternion();
@@ -57,14 +59,14 @@ const Card = ({ position }) => {
         new THREE.Euler(Math.PI / 2, Math.PI, Math.PI)
       );
       quaternion.multiply(adjustment);
-      meshRef.current.quaternion.slerp(quaternion, 0.03);
+      meshRef.current.quaternion.slerp(quaternion, duration);
       if (!hasBeenClicked) setHasBeenClicked(true);
     } else {
-      meshRef.current.position.lerp(originalPosition, 0.03);
+      meshRef.current.position.lerp(originalPosition, duration);
       const targetRotation = new THREE.Quaternion().setFromEuler(
         hasBeenClicked ? new THREE.Euler(0, 0, Math.PI) : originalRotation
       );
-      meshRef.current.quaternion.slerp(targetRotation, 0.03);
+      meshRef.current.quaternion.slerp(targetRotation, duration);
     }
   });
 
