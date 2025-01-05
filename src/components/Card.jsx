@@ -1,8 +1,6 @@
 import React, { useMemo, useRef, useState } from "react";
 import { useFrame, useThree } from "@react-three/fiber";
 import * as THREE from "three";
-import FrontCardTexture from "/public/cardFrontTexture.jpg";
-import BackCardTexture from "/public/cardBackTexture.png";
 import { TextureLoader } from "three";
 import { useLoader } from "@react-three/fiber";
 
@@ -23,8 +21,8 @@ const Card = ({ position }) => {
   );
   const originalRotation = new THREE.Euler(0, 0, 0);
 
-  const cardFrontTexture = useLoader(TextureLoader, FrontCardTexture);
-  const cardBackTexture = useLoader(TextureLoader, BackCardTexture);
+  const cardFrontTexture = useLoader(TextureLoader, '/cardFrontTexture.jpg');
+  const cardBackTexture = useLoader(TextureLoader, '/cardBackTexture.png');
 
   const materials = useMemo(() => [
     new THREE.MeshStandardMaterial({ color: CARD_COLOR }),

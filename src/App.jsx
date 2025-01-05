@@ -14,7 +14,7 @@ const App = () => {
     { x: 3, y: 0.5, z: 1 },
     { x: 4, y: 0.5, z: 3 },
   ];
-  const { scene } = useGLTF("../public/room.glb");
+  const { scene } = useGLTF("/room.glb");
 
   return (
     <Canvas camera={{ position: [7, 7, 7] }}>
