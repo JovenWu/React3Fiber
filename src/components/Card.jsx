@@ -35,6 +35,7 @@ const Card = ({ position }) => {
     new THREE.MeshStandardMaterial({ color: CARD_COLOR }),
   ], [cardFrontTexture, cardBackTexture]);
 
+
   useFrame(() => {
     if (!meshRef.current) return;
 

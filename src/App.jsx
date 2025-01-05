@@ -19,7 +19,7 @@ const App = () => {
   return (
     <Canvas camera={{ fov: 75, position: [7, 7, 7] }}>
       <directionalLight position={[-2, 15, -2]} intensity={1} />
-      <directionalLight position={[5, 5, 5]} intensity={1} />
+      <directionalLight castShadow position={[5, 5, 5]} intensity={1} />
       <Wall size={[10, 10, 1]} position={[0, 5.5, -7]} />
       <Wall size={[1, 10, 15]} position={[-4.5, 5.5, 0]} />
       <mesh>
@@ -30,7 +30,7 @@ const App = () => {
         <Card key={index} position={position} />
       ))}
       <primitive object={scene} position={[2, 0.91, 2]} scale={2} />
-      <OrbitControls enablePan={false} />
+      <OrbitControls enablePan={false} enableDamping dampingFactor={0.008} minDistance={10} maxDistance={15} />
       <Stats />
     </Canvas>
   );
