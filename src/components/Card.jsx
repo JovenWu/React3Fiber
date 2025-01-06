@@ -86,6 +86,7 @@ const Card = ({ position, setIsAnyCardAnimating, isAnyCardAnimating }) => {
       ref={meshRef}
       onClick={handleClick}
       position={[position.x, position.y, position.z]}
+      renderOrder={20} // Ensure it renders after the overlay
     >
       <boxGeometry args={[0.5, 0.02, 0.7]} />
       {materials.map((material, index) => (
