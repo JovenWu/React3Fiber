@@ -6,9 +6,9 @@ import { useLoader } from "@react-three/fiber";
 
 const CARD_COLOR = 0xeb4034;
 
-let isAnyCardAnimating = false;
+const Card = ({ position, setIsAnyCardAnimating, isAnyCardAnimating }) => {
+  // Card Component that animates when clicked
 
-const Card = ({ position }) => {
   const meshRef = useRef();
   const [isAnimating, setIsAnimating] = useState(false);
   const [hasBeenClicked, setHasBeenClicked] = useState(false);
@@ -23,29 +23,25 @@ const Card = ({ position }) => {
   );
   const originalRotation = new THREE.Euler(0, 0, 0);
 
-  const cardFrontTexture = useLoader(TextureLoader, '/cardFrontTexture.jpg');
-  const cardBackTexture = useLoader(TextureLoader, '/cardBackTexture.png');
+  const cardFrontTexture = useLoader(TextureLoader, "/cardFrontTexture.jpg");
+  const cardBackTexture = useLoader(TextureLoader, "/cardBackTexture.png");
 
-  const materials = useMemo(() => [
-    new THREE.MeshStandardMaterial({ color: CARD_COLOR }),
-    new THREE.MeshStandardMaterial({ color: CARD_COLOR }),
-    new THREE.MeshStandardMaterial({ map: cardBackTexture }),
-    new THREE.MeshStandardMaterial({ map: cardFrontTexture }),
-    new THREE.MeshStandardMaterial({ color: CARD_COLOR }),
-    new THREE.MeshStandardMaterial({ color: CARD_COLOR }),
-  ], [cardFrontTexture, cardBackTexture]);
-
+  const materials = useMemo(
+    () => [
+      new THREE.MeshStandardMaterial({ color: CARD_COLOR }),
+      new THREE.MeshStandardMaterial({ color: CARD_COLOR }),
+      new THREE.MeshStandardMaterial({ map: cardBackTexture }),
+      new THREE.MeshStandardMaterial({ map: cardFrontTexture }),
+      new THREE.MeshStandardMaterial({ color: CARD_COLOR }),
+      new THREE.MeshStandardMaterial({ color: CARD_COLOR }),
+    ],
+    [cardFrontTexture, cardBackTexture]
+  );
 
   useFrame(() => {
     if (!meshRef.current) return;
 
-    // Update controls enabled state
-    if (controls) {
-      controls.enabled = !isAnyCardAnimating;
-    }
-
     if (isAnimating) {
-        
       // Calculate position in front of camera
       const targetPosition = new THREE.Vector3(0, 0, -0.8);
       targetPosition.applyMatrix4(camera.matrixWorld);
@@ -73,7 +69,7 @@ const Card = ({ position }) => {
 
   const handleClick = (event) => {
     event.stopPropagation();
-    
+
     // Prevent clicking if another card is animating
     if (isAnyCardAnimating && !isAnimating) {
       return;
@@ -81,7 +77,8 @@ const Card = ({ position }) => {
 
     // Update animation states
     setIsAnimating(!isAnimating);
-    isAnyCardAnimating = !isAnyCardAnimating;
+    setIsAnyCardAnimating(!isAnimating);
+    console.log(isAnyCardAnimating)
   };
 
   return (
