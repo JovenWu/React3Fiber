@@ -78,7 +78,6 @@ const Card = ({ position, setIsAnyCardAnimating, isAnyCardAnimating }) => {
     // Update animation states
     setIsAnimating(!isAnimating);
     setIsAnyCardAnimating(!isAnimating);
-    console.log(isAnyCardAnimating)
   };
 
   return (

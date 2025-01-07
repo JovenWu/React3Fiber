@@ -45,7 +45,7 @@ const App = () => {
       camera={{ fov: 75, position: [7, 7, 7] }}
       shadows // Enable shadows in the Canvas
     >
-      <BlurOverlay isVisible={isBlurVisible} />
+      {isBlurVisible && <BlurOverlay />}
 
       {/* Add ambient light for overall scene illumination */}
       <ambientLight intensity={0.5} />
