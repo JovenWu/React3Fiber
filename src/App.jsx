@@ -8,6 +8,7 @@ import "./styles.css";
 
 const App = () => {
   const [isAnyCardAnimating, setIsAnyCardAnimating] = useState(false);
+  const [isBlurVisible, setIsBlurVisible] = useState(false);
 
   const cardPositions = [
     { x: 1.2, y: 1.145, z: 3 },
@@ -27,12 +28,24 @@ const App = () => {
       }
     });
   }, [scene]);
+
+  useEffect(() => {
+    if (isAnyCardAnimating) {
+      const timer = setTimeout(() => {
+        setIsBlurVisible(true);
+      }, 250); // Delay of 250ms before blur takes effect
+      return () => clearTimeout(timer);
+    } else {
+      setIsBlurVisible(false);
+    }
+  }, [isAnyCardAnimating]);
+
   return (
     <Canvas
       camera={{ fov: 75, position: [7, 7, 7] }}
       shadows // Enable shadows in the Canvas
     >
-      <BlurOverlay isVisible={isAnyCardAnimating} />
+      <BlurOverlay isVisible={isBlurVisible} />
 
       {/* Add ambient light for overall scene illumination */}
       <ambientLight intensity={0.5} />
@@ -76,8 +89,6 @@ const App = () => {
 
       <OrbitControls
         enablePan={false}
-        enableDamping
-        dampingFactor={0.008}
         minDistance={10}
         maxDistance={15}
         enabled={!isAnyCardAnimating}
@@ -87,4 +98,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default App; 
